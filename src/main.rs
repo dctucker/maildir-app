@@ -2,6 +2,7 @@ extern crate web_view;
 use web_view::*;
 use server;
 use app::UserData;
+use std::sync::mpsc::Sender;
 
 fn render(webview: &mut WebView<UserData>) -> WVResult {
 	let call = {
@@ -12,12 +13,7 @@ fn render(webview: &mut WebView<UserData>) -> WVResult {
 	webview.eval(&call)
 }
 
-fn main() {
-	let server = server::run_server().unwrap();
-	let port = server.port;
-	println!("Port: {}", server.port);
-	let server_tx = server.tx.clone();
-
+fn run_webview(port: u16, server_tx: Sender<app::Cmd>) {
 	let user_data = UserData::new();
 	let webview = web_view::builder()
 		.title("Mail time")
@@ -56,6 +52,12 @@ fn main() {
 			Ok(())
 		})
 	.build().unwrap();
+	let _ = webview.run().unwrap();
+}
 
-	webview.run().unwrap();
+fn main() {
+	let server = server::run_server().unwrap();
+	println!("Port: {}", server.port);
+
+	run_webview(server.port, server.tx.clone());
 }
