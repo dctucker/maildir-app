@@ -1,0 +1,21 @@
+[package]
+name = "server"
+version = "0.1.0"
+authors = ["Casey Tucker <dctucker@hotmail.com>"]
+edition = "2018"
+publish = false
+
+[dependencies]
+app = { path = "../app" }
+mailparse = "0.13.0"
+maildir = { path = "E:/Users/casey/Development/maildir-server/maildir" }
+#azul = { git = "https://github.com/maps4print/azul" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+webbrowser = "0.5.5"
+actix-web = "1.0"
+actix-rt = "0.2"
+futures = "0.1"
+mime_guess = "2.0.1"
+rust-embed = "5.1.0"
+cached = "0.18.0"
