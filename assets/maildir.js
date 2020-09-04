@@ -6,16 +6,35 @@ rpc = {
 		args.cmd = cmd;
 		external.invoke(JSON.stringify(args));
 	},
-	init : function() { rpc.invoke('Init'); },
+	init : function() {
+		rpc.invoke('Init');
+	},
 	render: function(data) {
-		Object.assign(rpc.user_data, data);
-		document.getElementById("mailbox_list").innerHTML = formatMailboxList(rpc.user_data.mailboxes);
+		/**
+		//Object.assign(rpc.user_data, data);
+		if(data.messages !== undefined){
+			rpc.user_data.messages = data.messages;
+		}
+		if(data.current_mailbox !== undefined) {
+			rpc.user_data.current_mailbox = data.current_mailbox;
+		}
+		//document.getElementById("mailbox_list").innerHTML = formatMailboxList(rpc.user_data.mailboxes);
 		document.getElementById("mail").getElementsByTagName("tbody")[0].innerHTML = formatMessages(rpc.user_data.messages);
+		*/
 	},
 	setMailbox: (i) => {
 		document.getElementById("mail").getElementsByTagName("tbody")[0].innerHTML  = "<tr><td colspan='4'>Loading...</td></tr>";
 		box = rpc.user_data.mailboxes[i];
-		rpc.invoke("SetMailbox", {path: box});
+		fetch('/mail/box' + box).then(resp => resp.json()).then(data => {
+			if(data.messages !== undefined){
+				rpc.user_data.messages = data.messages;
+			}
+			if(data.current_mailbox !== undefined) {
+				rpc.user_data.current_mailbox = data.current_mailbox;
+			}
+			document.getElementById("mail").getElementsByTagName("tbody")[0].innerHTML = formatMessages(rpc.user_data.messages);
+		});
+		//rpc.invoke("SetMailbox", {path: box});
 		rpc.user_data.current_mailbox = box;
 	},
 	setMessage: (i) => {
@@ -57,7 +76,11 @@ var content_loaded = function(){
 		}
 	}
 
-	rpc.invoke('LoadMail');
+	//rpc.invoke('LoadMail');
+	fetch('/mail/boxes').then(resp => resp.json()).then(data => {
+		rpc.user_data.mailboxes = data;
+		document.getElementById("mailbox_list").innerHTML = formatMailboxList(rpc.user_data.mailboxes);
+	});
 	/*
 	fetch('/mail/messages/gmail/Arelí/cur/1597730753_1.1.18955d0b6ab1,U=3,FMD5=12cbe7315a369d36a41b7a83f277c87d:2,S')
 		.then(resp => resp.json())
@@ -91,7 +114,7 @@ function toBinary(string) {
 }
 
 function bodyUrl(loc) {
-	path = '/mail/messages';
+	path = '/mail/messages/';
 	path += encodeURI(rpc.user_data.current_mailbox);
 	path += '/';
 	path += encodeURI(rpc.user_data.current_message);

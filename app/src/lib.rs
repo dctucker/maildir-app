@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 pub const MAILDIR_PATH: &str = "E:/Maildir";
 
 
-#[derive(Debug,Serialize)]
+#[derive(Clone,Debug,Serialize)]
 pub struct UserData {
 	pub mailboxes: Vec<String>,
 	pub current_mailbox: String,
@@ -22,7 +22,7 @@ impl UserData {
 			current_message: "".to_string(),
 			mailboxes: vec![],
 			messages: HashMap::new(),
-		}.load_mailboxes()
+		}
 	}
 	pub fn load_mailboxes(mut self) -> Self {
 		let full_path = MAILDIR_PATH.clone();

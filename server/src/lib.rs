@@ -1,5 +1,5 @@
 //#![windows_subsystem = "windows"]
-use app::{Cmd, Message, MAILDIR_PATH};
+use app::{Cmd, Message, MAILDIR_PATH, UserData};
 
 extern crate actix_rt;
 extern crate actix_web;
@@ -113,6 +113,8 @@ impl Server {
 	}
 }
 
+use std::sync::Mutex;
+use actix_web::web::Data;
 pub fn run_server() -> Result<Server, String> {
 	let (server_tx, server_rx) = mpsc::channel();
 	let (control_tx, control_rx) = mpsc::channel();
@@ -122,15 +124,27 @@ pub fn run_server() -> Result<Server, String> {
 		let sys = actix_rt::System::new("actix-example");
 
 		let server = HttpServer::new(|| {
+				let user_data = Data::new(
+					Mutex::new(
+						UserData::new().load_mailboxes()
+					)
+				);
 				App::new()
+					.register_data(user_data.clone())
 					//.route("/mail/message.json", web::get().to(get_mail))
 					//.route("/mail/box/{dir:.*}/{msg_id}/headers.json", web::get().to(mail_headers))
 					.route("/mail/messages/{path:.*}", web::get().to(get_mail))
-					/*.route("/mail/boxes", web::get().to(|| {
-						HttpResponse::Ok()
-							.json()
-					}))*/
-					//.route("/mail/box/{dir:.*}", web::get().to(mailbox))
+					.route("/mail/boxes", web::get().to(|req: HttpRequest| {
+						let data = req.get_app_data::<Mutex<UserData>>().unwrap().lock().unwrap().mailboxes.clone();
+						HttpResponse::Ok().json(data)
+					}))
+					.route("/mail/box/{path:.*}", web::get().to(|req: HttpRequest| {
+						let path = req.match_info().get("path").unwrap();
+						let data : Data<Mutex<UserData>> = req.get_app_data().unwrap();
+						let mut data = data.lock().unwrap();
+						data.set_current_mailbox(path.to_string());
+						HttpResponse::Ok().json(data.clone())
+					}))
 					.route("*", web::get().to(assets))
 			})
 			.bind("127.0.0.1:0")
