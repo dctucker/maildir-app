@@ -1,0 +1,20 @@
+body {
+	background-color: #fff;
+	color: 000;
+}
+#mail thead tr {
+	background-color: #eee;
+}
+#mail table tr * {
+	border-color: #eee;
+}
+.part {
+	border-color: #eee;
+}
+.ctype {
+	color: #ddd;
+}
+#href {
+	background-color: #ccc;
+	color: #333;
+}

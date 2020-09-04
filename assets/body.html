@@ -1,0 +1,58 @@
+<div id="toolbar">
+	<button onclick="external.invoke('load_mail')">Open</button>
+	<button onclick="external.invoke('save')">Save</button>
+	<button onclick="external.invoke('info')">Info</button>
+	<button onclick="external.invoke('warning')">Warning</button>
+	<button onclick="external.invoke('error')">Error</button>
+	<button onclick="external.invoke('exit')">Exit</button>
+</div>
+<div id="mail">
+	<table>
+		<thead>
+			<tr>
+				<th>[]</th>
+				<th>From</th>
+				<th>Subject</th>
+				<th>Received</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div id="preview">
+	<div class="headers">
+		<section class='accordion'>
+			<input type='checkbox' name='collapse' id='handle0'>
+			<label id="headers_label" for='handle0'>Headers</label>
+			<div class='content'>
+				<table id="headers">
+				</table>
+			</div>
+		</section>
+	</div>
+	<div class="body">
+		<div id="body">
+		</div>
+	</div>
+</div>
+<div id="href">
+</div>

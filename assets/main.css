@@ -1,0 +1,221 @@
+*::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+html::-webkit-scrollbar-thumb{
+	background:linear-gradient(180deg,#ff8a00,#e52e71);border-radius:30px;box-shadow:inset 2px 2px 2px hsla(0,0%,100%,.25),inset -2px -2px 2px rgba(0,0,0,.25)
+}
+html::-webkit-scrollbar-track{
+	background:linear-gradient(90deg,#201c29,#201c29 1px,#100e17 0,#100e17)
+}
+
+* {
+	font-family: "Overpass", "Open Sans", Helvetica, sans-serif;
+	font-size: 12pt;
+	font-weight: 300;
+}
+body {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+div {
+	box-sizing: border-box;
+}
+
+#app {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+#mailboxes {
+	height:100%;
+	width:200px;
+	position: absolute;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#mailbox_list {
+	padding-left: 0px;
+}
+#mailbox_list li {
+	white-space: nowrap;
+	display: block;
+	padding: 4px 2px;
+	cursor: pointer;
+}
+#mailbox {
+	margin-left: 200px;
+	height:100%;
+	left: 200px;
+}
+#mail {
+	position: relative;
+	height: 30%;
+	overflow-y: scroll;
+	border: 2px inset #000;
+}
+#preview {
+	width: 100%;
+	height: 70%;
+	overflow-y: scroll;
+	border: 2px inset #444;
+}
+
+#mail table {
+	/* height: 100%; */
+	width: 100%;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+#mail table thead tr th {
+	text-align: left;
+}
+#mail table tr * {
+	height: 1em;
+	border-style: solid;
+	border-width: 1px;
+	white-space: pre;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+}
+#mail table tr.new td {
+	font-weight: bold;
+	background-color: #555;
+}
+#toolbar { display: none; }
+
+.headers {
+	width: 100%;
+}
+#headers {
+	table-layout: auto;
+	width: 100%;
+	border-collapse: collapse;
+}
+#headers tr * {
+	font-family: consolas;
+	font-size: 10pt;
+	border: none;
+	vertical-align: top;
+}
+#headers tr th {
+	white-space: pre;
+	text-align: left;
+	padding-right: 0px;
+	margin-right: 0px;
+}
+#headers tr td {
+	padding-left: 0px;
+	margin-left: 0px;
+	word-break: break-all;
+}
+
+#preview > div {
+	position: relative;
+	padding: 1em 2em;
+}
+
+.plain {
+	white-space: pre-wrap;
+	text-overflow: wrap;
+	word-break: break-word;
+	overflow-x: auto;
+}
+.part {
+	border-width: 1px;
+	border-style: solid;
+	padding: 0.5em 1em;
+}
+.ctype {
+	font-size: 10pt;
+}
+
+#href {
+	font-family: Arial;
+	font-size: 10pt;
+	bottom: 0px;
+	left: 0px;
+	position: absolute;
+	word-break: break-all;
+}
+
+/* CSS for the main interaction */
+.accordion > input[type="checkbox"] {
+  position: absolute;
+  left: -100vw;
+}
+
+.accordion .content {
+  overflow-y: hidden;
+  height: 0;
+  transition: height 0.3s ease;
+}
+
+.accordion > input[type="checkbox"]:checked ~ .content {
+  height: auto;
+  overflow: visible;
+}
+
+.accordion label {
+  display: block;
+}
+
+/* Styling */
+.accordion {
+  margin-bottom: 1em;
+}
+
+.accordion > input[type="checkbox"]:checked ~ .content {
+  padding: 7px;
+  border-top: 0;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.accordion .handle {
+  margin: 0;
+  font-size: 1.125em;
+  line-height: 1.2em;
+}
+
+.accordion label {
+  cursor: pointer;
+  font-weight: normal;
+  padding: 15px;
+}
+
+.accordion .handle label:before {
+  font-family: 'fontawesome';
+  content: "\f054";
+  display: inline-block;
+  margin-right: 10px;
+  font-size: .58em;
+  line-height: 1.556em;
+  vertical-align: middle;
+}
+
+.accordion > input[type="checkbox"]:checked ~ .handle label:before {
+  content: "\f078";
+}
+
+nav {
+	position: fixed;
+}

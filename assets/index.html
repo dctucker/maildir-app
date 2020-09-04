@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+	<meta name="referrer" content="no-referrer" />
+    <title>Mail Time</title>
+	<link rel="stylesheet" href="main.css" />
+	<link rel="stylesheet" href="dark.css" />
+</head><body>
+	<!-- script src="client.js"></script>
+	<script type="module">
+		const { Client } = wasm_bindgen;
+		init('./client_bg.wasm').then(() => {
+			window.initialState = {};
+			window.client = new Client(window.initialState);
+			client.fetch_mailboxes();
+		}).catch(console.error);
+	</script -->
+
+	<div id='app'>
+
+		<div id="mailboxes">
+			<ul id="mailbox_list">
+			</ul>
+		</div>
+
+		<div id="mailbox">
+			<div id="mail">
+				<table>
+					<thead>
+						<tr>
+							<th style='width:2em'>&nbsp;</th>
+							<th style='width:30%'>From</th>
+							<th>Subject</th>
+							<th style='width:10em'>Received</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="preview">
+				<div class="headers">
+					<section class='accordion'>
+						<input type='checkbox' name='collapse' id='handle0'>
+						<label id="headers_label" for='handle0'>Headers</label>
+						<div class='content'>
+							<table id="headers">
+							</table>
+						</div>
+					</section>
+				</div>
+				<div class="body">
+					<div id="body">
+					</div>
+				</div>
+			</div>
+
+			<div id="href"></div>
+		</div>
+
+	</div>
+	<script src="/maildir.js"></script>
+</body>
+</html>

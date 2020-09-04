@@ -1,0 +1,37 @@
+body {
+	background-color: #000;
+	color: #ccc;
+	-ms-overflow-style: scrollbar;
+}
+#mail thead tr {
+	background-color: #222;
+	color: #ccc;
+}
+#mail table tr * {
+	border-color: #222;
+}
+.part {
+	border-color: #444;
+}
+.ctype {
+	color: #666;
+}
+#href {
+	background-color: #555;
+	color: #aaa;
+}
+.accordion > input[type="checkbox"]:checked ~ .content {
+  border-color: #222222;
+}
+.accordion label {
+  color: #999;
+  background: #222222;
+}
+.accordion label:hover,
+.accordion label:focus {
+  background: #333333;
+}
+
+#mailbox_list li:hover {
+	background-color: #543;
+}
